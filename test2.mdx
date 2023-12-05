@@ -1,0 +1,60 @@
+---
+title: 'Les sites statiques et dynamiques et Next.js'
+date: '2023-12-05'
+summary: 'Connaissez-vous vraiment la différence entre une page web statique et dynamique ? CSR, SSR, SSG, ISR : c'est quoi ces acronymes ? Et l'intérêt de Next.js'
+tags: ['next.js']
+---
+
+Un des avantages d'utiliser un framework comme Next.js par rapport à du React.js pur, c'est de pouvoir bénéficier du *"Server-Side Rendering"* (SSR), c'est-à-dire un rendu des pages s'effectuant côté serveur. En effet, là où une page web statique est générée via le navigateur web de l'utilisateur, par exemple lorsqu'il interagit avec des composants front-end, le SSR permet de pré-rendre ces pages du côté serveur avant de les envoyer au navigateur. Les avantages sont nombreux, notamment en termes de SEO, mais nous y reviendrons après avoir posé les fondamentaux.
+
+
+# Les fondamentaux : pages web statiques et dynamiques
+
+Pour bien comprendre ce mécanisme et ses subtilités, il faut revenir au fondamentaux. A commencer par bien comprendre la différence entre une page web statique et dynamique (oui, les fondamentaux on a dit ! 😅)
+
+- Une page web **statique**, c'est une page (typiquement composée de HTML, CSS et JS) qui est déjà disponible sur le serveur dans la forme dans laquelle elle sera servie à l'utilisateur. En se rendant sur l'URL, l'utilisateur envoie une requête au serveur pour accéder à cette page, et le serveur lui renvoie exactement cette page (constituée par exemple de HTML, CSS et JS), sans effectuer aucune étape intermédiaire.
+
+- Une page web **dynamique**, vous l'aurez deviné, c'est son antagoniste. Avant que l'utilisateur n'effectue à travers son navigateur la demande pour se rendre sur une page dynamique, la page telle qu'elle va être servie à l'utilisateur n'existe pas sur le serveur. Au moment de la requête, le serveur va récupérer diverses informations sur une (ou plusieurs) bases de données pour construire une page web "unique", puis l'envoyer à l'utilisateur. Son navigateur va ensuite l'afficher. 
+
+Il est crucial ici de bien comprendre le sens de *statique*. Dire qu'une page est statique ne veut pas dire qu'elle n'est pas dotée d'interactions. Au contraire ! Un bouton qui affiche ou cache du contenu, un formulaire de contact qui envoie un e-mail, un appel vers une API pour récupérer la météo et l'afficher à l'écran… sont tant de choses que l'on peut effectuer sur une page statique. 
+
+La différence, c'est qu'une page web statique est servie à l'utilisateur dans un état qui n'est potentiellement pas "final" : la navigateur va devoir éventuellement s'occuper de récupérer des données après le rendu initial de la page, avec JavaScript par exemple. C'est typiquement ce qu'il se passe quand on voit une partie d'une page charger avec un *"spinner"* (le demi cercle qui tourne).
+
+Une page web dynamique, elle, est fournie à l'utilisateur dans son état final, parce que ce processus de génération de la page a eu lieu sur le serveur. C'est ça, le SSR ! Avoir un site web qui dispose de pages dynamiques nécessite donc la présence d'un backend.
+
+C'est assez facile de s'emmêler les pinceaux avec ces concepts, car la terminologie est assez contre-intuitive, il faut l'avouer.
+
+Ainsi, une web-app React.js qui effectue des appels vers une API et dont le contenu de la page change en fonction de plusieurs paramètres est-elle dynamique ou statique ? Eh bien elle est statique, car même si son contenu change dynamiquement au sein du navigateur, ce qui est *servi* au navigateur par le serveur est bel et bien statique : il n'y a pas de rendu au préalable, la même chose est servie à tous les utilisateurs. Vous saisissez ?
+
+# Statique vs dynamique : qu'est-ce qui est mieux ?
+
+Un site web statique est plus simple à mettre en place, mais nécessite un rendu par le navigateur et peut poser des problèmes de sécurité (code JavaScript disponible publiquement). Un site web dynamique élimine ces problèmes, mais la page doit être générée côté serveur d'abord, ce qui implique la création d'un backend et son déploiement, c'est-à-dire un serveur supportant le langage serveur choisi, là où un site statique n'aura besoin que d'un hébergement statique. Cela va donc dépendre de vos besoins, de votre budget (un hébergement dynamique est en général plus cher), de vos connaissances en matière de développement ou du prix que vous êtes prêt à payer développeur pour s'en occuper pour vous.
+
+Un autre atout notable du SSR est le **référencement** (le SEO pour *Search Engine Optimization* est un domaine à part entière). En effet, la présence de votre site web dans les résultats de recherche Google, Bing etc. et donc votre impact sur votre marché cible dépend d'un processus effectué par des robots qu'on appelle des *web crawlers* qui consiste à sonder le web dans son ensemble afin de référencer les différents sites et leurs contenus. Si vous avez bien compris le concept derrière les pages statiques, vous savez maintenant que le contenu d'une page statique n'est pas initialement disponible lorsque la page est chargée mais qu'il dépend de la capacité du navigateur à générer la page. Eh bien, ces robots ne sont pas particulièrement friands du SSR puisqu'ils ne sondent que le contenu initialement chargé. Là où une web-app interne d'entreprise n'aura aucun intérêt à disposer d'un SEO percutant, c'est une toute autre chose s'il s'agit d'une entreprise, d'un business pour lequel vous souhaitez une bonne visibilité sur le web.
+
+# CSR, SSR, SSG, ISR : démystifier des acronymes intimidants
+
+Il existe plusieurs procédés pour générer des pages web. Les voici :
+- CSR pour *Client-Side Rendering*
+- SSR pour *Server-Side Rendering*
+- SSG pour *Static Site Generation*
+- ISR pour *Incremental Static Regeneration*
+
+Si ces acronymes peuvent être intimidants, la bonne nouvelle, c'est qu'on en a déjà abordé deux sur quatre.
+- En effet, le **Client-Side Rendering** (CSR), c'est ce qu'on a évoqué à l'instant. C'est le processus consistant à servir au client des pages web statiques qui vont nécessiter le navigateur pour se générer pleinement ;
+- De même, le **Server-Side Rendering** (SSR), c'est le processus qui consiste à générer les pages web côté serveur, puis à les envoyer au navigateur (client) pour les afficher : ce sont les pages dynamiques.
+
+Les deux définitions suivantes découlent en réalité des précédentes, donc si vous m'avez suivi jusqu'ici, ça ne devrait pas être trop difficile à comprendre.
+
+Le **Static Site Generation** (SSG) n'est autre qu'un SSR qui a lieu lors du *build time*, c'est à dire lorsque l'on compile le site. Il donne lieu à des pages générées dynamiquement côté serveur... mais une seule fois, lors de la compilation. A la différence du SSR, ces pages ne sont donc pas générées à chaque requête de l'utilisateur. Elles sont belles et bien présentes sur le serveur ainsi générées, et servies telles quelles. Ce sont donc des **pages statiques** !
+
+Pour un blog par exemple, c'est la solution idéale, car le contenu d'un article ne change pas ou pas souvent. On n'a donc aucun intérêt à envoyer une requête au serveur à chaque fois qu'un utilisateur veut accéder à un article pour lui demander de générer la page, n'est-ce pas ?
+
+Mais un problème se pose, car cela nécessite d'effectuer un *rebuild* du site entier à chaque fois que son contenu est amené à changer. Un nouvel article ajouté sur le blog ? Il faut recompiler le site dans son intégralité. Si le site est recompilé chaque dimanche, et qu'un article est posté le lundi matin, il faudra attendre 6 jours pour qu'il soit visible sur le site. Si le blog contient de nombreux articles ou s'il s'agit d'un site avec beaucoup de contenu, le *build time* peut être conséquent.
+
+Le **Incremental Static Regeneration** (ISR) est la réponse parfaite à cette problématique. C'est une approche hybride qui permet de jouir des bénéfices du SSG sans avoir à *rebuild* le site entier, ce qui est très appréciable pour pouvoir *scaler* un site web en termes de contenu. Seule les pages concernées sont régénérées de manière périodique, le reste du *build* ne changeant pas.
+
+  
+# Next.js, un framework React pour le web
+
+ Le framework **Next.js**, dont le sous-titre officiel est "The React Framework for the Web", permet et facilite cette approche hybride. C'est un framework pensé pour le web, pour les sites basés sur le contenu, et nécessitant un bon référencement. Pour le site sur lequel vous vous trouvez actuellement, par exemple, c'est le framework que j'ai utilisé. Il m'a permis d'utiliser le *Server-Side Rendering* là où c'est nécessaire, et de faire appel à l'*Incremental Static Regeneration* là où c'était plus pertinent. Ce sera le sujet d'un prochain article, dans lequel je montrerai concrètement comment cela fonctionne !
