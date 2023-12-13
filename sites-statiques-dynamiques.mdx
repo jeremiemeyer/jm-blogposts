@@ -11,7 +11,7 @@ En effet, là où une page web statique est générée via le navigateur web de 
 
 # Les fondamentaux : pages web statiques et dynamiques
 
-Pour bien comprendre ce mécanisme et ses subtilités, il faut revenir au fondamentaux. A commencer par bien comprendre la différence entre une page web statique et dynamique (oui, les fondamentaux on a dit ! 😅)
+Pour bien comprendre ce mécanisme et ses subtilités, il faut revenir au fondamentaux. A commencer par bien comprendre la différence entre une page web statique et dynamique.
 
 - Une page web **statique**, c'est une page (typiquement composée de HTML, CSS et JS) qui est déjà disponible sur le serveur dans la forme dans laquelle elle sera servie à l'utilisateur. En se rendant sur l'URL, l'utilisateur envoie une requête au serveur pour accéder à cette page, et le serveur lui renvoie exactement cette page (constituée par exemple de HTML, CSS et JS), sans effectuer aucune étape intermédiaire.
 
@@ -57,5 +57,7 @@ Le **Incremental Static Regeneration** (ISR) est la réponse parfaite à cette p
 
   
 # Next.js, un framework React pour le web
+
+<CustomImage src="https://raw.githubusercontent.com/jeremiemeyer/jm-blogposts/main/images/nextjs.webp" alt="NextJS logo" />
 
  Le framework **Next.js**, dont le sous-titre officiel est "The React Framework for the Web", permet et facilite cette approche hybride. C'est un framework pensé pour le web, pour les sites basés sur le contenu, et nécessitant un bon référencement. Pour le site sur lequel vous vous trouvez actuellement, par exemple, c'est le framework que j'ai utilisé. Il m'a permis d'utiliser le *Server-Side Rendering* là où c'est nécessaire, et de faire appel à l'*Incremental Static Regeneration* là où c'était plus pertinent. Ce sera le sujet d'un prochain article, dans lequel je montrerai concrètement comment cela fonctionne !
